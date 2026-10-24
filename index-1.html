@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Командная викторина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<section id="start-screen" class="screen active">
+
+    <div class="start-settings">
+        <button id="settings-btn" class="icon-button" title="Настройки">⚙️</button>
+        <button id="database-btn" class="icon-button" title="Управление вопросами">⚙️?</button>
+    </div>
+
+    <div class="logo-icon">⚡</div>
+    <h1>КОМАНДНАЯ<br>ВИКТОРИНА</h1>
+    <p class="subtitle">Проверь свои знания!</p>
+
+    <button id="start-btn" class="main-button">НАЧАТЬ ИГРУ</button>
+</section>
+
+
+<!-- НАСТРОЙКА КОМАНД -->
+<section id="teams-screen" class="screen">
+
+    <div class="section-icon">👥</div>
+    <h2>Настройка команд</h2>
+    <p class="subtitle">Кто сегодня победит?</p>
+
+    <div id="teams-list"></div>
+
+    <button id="add-team-btn" class="secondary-button">
+        + Добавить команду
+    </button>
+
+    <button id="teams-next-btn" class="main-button">
+        ПРОДОЛЖИТЬ
+    </button>
+</section>
+
+
+<!-- ВЫБОР ВОПРОСОВ И КАТЕГОРИЙ -->
+<section id="questions-screen" class="screen">
+
+    <div class="section-icon">❓</div>
+    <h2>Выбор вопросов</h2>
+    <p class="subtitle">Настрой свою игру</p>
+
+    <div class="question-settings">
+        <label for="question-count">Количество вопросов:</label>
+        <input
+            type="number"
+            id="question-count"
+            value="5"
+            min="1"
+        >
+    </div>
+
+    <p id="available-count"></p>
+
+    <div class="category-selection">
+        <h3>Категории</h3>
+
+        <button id="select-all-categories" class="secondary-button">
+            ВЫБРАТЬ ВСЕ ТЕМЫ
+        </button>
+
+        <div id="categories-list"></div>
+    </div>
+
+    <button id="questions-next-btn" class="main-button">
+        НАЧАТЬ ИГРУ
+    </button>
+</section>
+
+
+<!-- ИГРОВОЙ ЭКРАН -->
+<section id="game-screen" class="screen">
+
+    <div class="game-top">
+        <p id="round-counter">Вопрос 1 / 5</p>
+        <span class="game-label">ВИКТОРИНА</span>
+    </div>
+
+    <div id="timer-box">
+        <span class="timer-caption">ОСТАЛОСЬ ВРЕМЕНИ</span>
+        <div id="timer">20</div>
+
+        <div class="timer-track">
+            <div id="timer-progress"></div>
+        </div>
+    </div>
+
+    <div id="question-card">
+        <h3 id="category"></h3>
+        <h2 id="question-text"></h2>
+    </div>
+
+    <div id="game-circle">
+        <span id="circle-text">?</span>
+    </div>
+
+    <p id="game-hint">Нажми на круг, чтобы открыть ответ</p>
+    <p id="swipe-hint">Проведи круг в сторону своей команды</p>
+    <p id="direction-info"></p>
+
+    <div id="round-feedback"></div>
+
+    <button id="pause-btn" class="pause-button" title="Пауза">
+        ⏸
+    </button>
+
+</section>
+
+
+<!-- ЭКРАН РЕЗУЛЬТАТОВ -->
+<section id="score-screen" class="screen">
+
+    <div class="section-icon">🏆</div>
+    <h1 id="winner-title">РЕЗУЛЬТАТЫ</h1>
+    <p id="winner-subtitle" class="subtitle">
+        Вот кто сегодня победил!
+    </p>
+
+    <div id="score-list"></div>
+
+    <button id="restart-btn" class="main-button">
+        НА ГЛАВНУЮ
+    </button>
+</section>
+
+
+<!-- КОМНАТА УПРАВЛЕНИЯ ВОПРОСАМИ -->
+<section id="database-screen" class="screen">
+
+    <div class="section-icon">📚</div>
+    <h2>Управление вопросами</h2>
+    <p class="subtitle">Создавай собственную базу викторины</p>
+
+    <div class="database-section">
+        <h3>Импорт вопросов</h3>
+
+        <p>Загрузи файл TXT или JSON:</p>
+
+        <input type="file" id="question-file" accept="text/plain,.txt,.json,application/json">
+
+        <button id="import-file-btn" class="secondary-button">
+            ЗАГРУЗИТЬ ФАЙЛ
+        </button>
+    </div>
+
+    <div class="database-section">
+        <h3>Вставить вопросы</h3>
+
+        <p>Вставь текст с вопросами в формате TXT:</p>
+
+        <textarea
+            id="question-text-input"
+            placeholder="Категория: Аниме&#10;Вопрос: Как зовут капитана пиратов Соломенной Шляпы?&#10;Ответ: Луффи"
+            rows="8"
+        ></textarea>
+
+        <button id="import-text-btn" class="secondary-button">
+            ИМПОРТИРОВАТЬ ТЕКСТ
+        </button>
+    </div>
+
+    <div class="database-section">
+        <h3>Загруженные наборы</h3>
+
+        <div id="batches-list">
+            <p>Загрузка наборов...</p>
+        </div>
+    </div>
+
+    <div class="database-section">
+        <h3>Резервная копия</h3>
+
+        <button id="export-database-btn" class="secondary-button">
+            ЭКСПОРТИРОВАТЬ БАЗУ
+        </button>
+    </div>
+
+    <button id="database-back-btn" class="main-button">
+        НАЗАД
+    </button>
+
+</section>
+
+
+<!-- ОБЩИЕ НАСТРОЙКИ -->
+<section id="settings-screen" class="screen">
+
+    <div class="section-icon">⚙️</div>
+    <h2>Настройки игры</h2>
+    <p class="subtitle">Настрой звуки и музыку</p>
+
+    <div class="settings-section">
+
+        <label>
+            <input type="checkbox" id="music-enabled">
+            Фоновая музыка
+        </label>
+
+        <label>
+            <input type="checkbox" id="button-sound-enabled">
+            Звук нажатия кнопок
+        </label>
+
+        <label>
+            <input type="checkbox" id="point-sound-enabled">
+            Звук получения очка
+        </label>
+
+        <label>
+            <input type="checkbox" id="timeout-sound-enabled">
+            Звук окончания времени
+        </label>
+
+        <label>
+            <input type="checkbox" id="victory-sound-enabled">
+            Звук победы
+        </label>
+
+    </div>
+
+    <div class="settings-section">
+        <h3>Свои аудиофайлы</h3>
+
+        <label for="music-file">Фоновая музыка:</label>
+        <input type="file" id="music-file" accept="audio/*">
+
+        <label for="button-sound-file">Звук кнопок:</label>
+        <input type="file" id="button-sound-file" accept="audio/*">
+
+        <label for="point-sound-file">Звук получения очка:</label>
+        <input type="file" id="point-sound-file" accept="audio/*">
+
+        <label for="timeout-sound-file">Звук окончания времени:</label>
+        <input type="file" id="timeout-sound-file" accept="audio/*">
+
+        <label for="victory-sound-file">Звук победы:</label>
+        <input type="file" id="victory-sound-file" accept="audio/*">
+    </div>
+
+    <button id="settings-back-btn" class="main-button">
+        СОХРАНИТЬ И НАЗАД
+    </button>
+
+</section>
+
+
+<!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ -->
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
