@@ -1,0 +1,86 @@
+
+name: Build Quiz Game APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Check files
+        run: |
+          test -f index-1.html
+          test -f style-1.css
+          test -f script-1.js
+          test -f database-4.js
+
+      - name: Prepare web files
+        run: |
+          mkdir -p www
+          cp index-1.html www/index.html
+          cp style-1.css www/style.css
+          cp script-1.js www/script.js
+          cp database-4.js www/database.js
+
+      - name: Initialize project
+        run: npm init -y
+
+      - name: Install Capacitor
+        run: |
+          npm install @capacitor/core@7
+          npm install @capacitor/android@7
+          npm install --save-dev @capacitor/cli@7
+
+      - name: Configure Capacitor
+        run: |
+          cat > capacitor.config.json <<'EOF'
+          {
+            "appId": "com.quizgame.app",
+            "appName": "Quiz Game",
+            "webDir": "www"
+          }
+          EOF
+
+      - name: Create Android project
+        run: npx cap add android
+
+      - name: Sync project
+        run: npx cap sync android
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Quiz-Game-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
+          
