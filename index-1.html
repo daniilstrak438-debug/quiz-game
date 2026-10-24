@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Командная викторина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main>
+
+    <section id="start-screen" class="screen active">
+        <div class="logo-icon">⚡</div>
+        <h1>КОМАНДНАЯ<br>ВИКТОРИНА</h1>
+        <p class="subtitle">Проверь свои знания!</p>
+        <button id="start-btn" class="main-button">НАЧАТЬ ИГРУ</button>
+    </section>
+
+    <section id="teams-screen" class="screen">
+        <div class="section-icon">👥</div>
+        <h2>Настройка команд</h2>
+        <p class="subtitle">Кто сегодня победит?</p>
+
+        <div id="teams-list"></div>
+
+        <button id="add-team-btn" class="secondary-button">
+            + Добавить команду
+        </button>
+
+        <button id="teams-next-btn" class="main-button">
+            ПРОДОЛЖИТЬ
+        </button>
+    </section>
+
+    <section id="questions-screen" class="screen">
+        <div class="section-icon">❓</div>
+        <h2>Количество вопросов</h2>
+        <p class="subtitle">Сколько раундов сыграем?</p>
+
+        <input
+            type="number"
+            id="question-count"
+            value="5"
+            min="1"
+        >
+
+        <p id="available-count"></p>
+
+        <button id="questions-next-btn" class="main-button">
+            НАЧАТЬ ИГРУ
+        </button>
+    </section>
+
+    <section id="game-screen" class="screen">
+
+        <div class="game-top">
+            <p id="round-counter">Вопрос 1 / 5</p>
+            <span class="game-label">ВИКТОРИНА</span>
+        </div>
+
+        <div id="timer-box">
+            <span class="timer-caption">ОСТАЛОСЬ ВРЕМЕНИ</span>
+            <div id="timer">20</div>
+            <div class="timer-track">
+                <div id="timer-progress"></div>
+            </div>
+        </div>
+
+        <div id="question-card">
+            <h3 id="category"></h3>
+            <h2 id="question-text"></h2>
+        </div>
+
+        <div id="game-circle">
+            <span id="circle-text">?</span>
+        </div>
+
+        <p id="game-hint">Нажми на круг, чтобы открыть ответ</p>
+        <p id="swipe-hint">Проведи круг в сторону своей команды</p>
+        <p id="direction-info"></p>
+
+        <div id="round-feedback"></div>
+
+    </section>
+
+    <section id="score-screen" class="screen">
+        <div class="section-icon">🏆</div>
+        <h1>РЕЗУЛЬТАТЫ</h1>
+        <p class="subtitle">Вот кто сегодня победил!</p>
+
+        <div id="score-list"></div>
+
+        <button id="restart-btn" class="main-button">
+            НА ГЛАВНУЮ
+        </button>
+    </section>
+
+</main>
+
+<script src="questions.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
